@@ -25,13 +25,13 @@ def read_json(endpoint):
     return(df)
 
 #Get daily increase for specific columns
-def get_daily_increase(df,column_name):
+def get_daily_diffence(df,column_name):
 
     prev_col_name = "prev_" + column_name
-    increase_col_name = "increase_in_" + column_name
+    diff_col_name = "daily_diff_in_" + column_name
 
     df[prev_col_name] = df[column_name].shift().astype('Int64')
-    df[increase_col_name] = df[column_name] - df[prev_col_name]
+    df[diff_col_name] = df[column_name] - df[prev_col_name]
 
     return(df)
 
@@ -58,12 +58,10 @@ def main():
         print(read_df.columns)
 
         #Calculate increase in confirmed cases
-        new_df = get_daily_increase(read_df, 'confirmed')
-        new_df = get_daily_increase(new_df, 'deaths')
-        new_df = get_daily_increase(new_df, 'recovered')
-        new_df = get_daily_increase(new_df, 'active')
-
-        print(new_df)
+        new_df = get_daily_diffence(read_df, 'confirmed')
+        new_df = get_daily_diffence(new_df, 'deaths')
+        new_df = get_daily_diffence(new_df, 'recovered')
+        #print(new_df)
 
         new_df.dropna(subset = ["prev_confirmed"], inplace=True) #drop first row with no prev value
 
