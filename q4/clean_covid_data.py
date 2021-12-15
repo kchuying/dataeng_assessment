@@ -27,7 +27,7 @@ def read_json(endpoint):
 #Get daily increase for specific columns
 def get_daily_diffence(df,column_name):
 
-    prev_col_name = "prev_" + column_name
+    prev_col_name = "prev_day_" + column_name
     diff_col_name = "daily_diff_in_" + column_name
 
     df[prev_col_name] = df[column_name].shift().astype('Int64')
@@ -40,9 +40,9 @@ def split_datetime(new_df):
     #Convert datetime to date
     new_df['date'] = pd.to_datetime(new_df['date']).dt.date
 
-    new_df.insert(0,'Year',pd.DatetimeIndex(new_df['date']).year)
-    new_df.insert(1,'Month',pd.DatetimeIndex(new_df['date']).month)
-    new_df.insert(2,'Day',pd.DatetimeIndex(new_df['date']).day)
+    new_df.insert(0,'year',pd.DatetimeIndex(new_df['date']).year)
+    new_df.insert(1,'month',pd.DatetimeIndex(new_df['date']).month)
+    new_df.insert(2,'day',pd.DatetimeIndex(new_df['date']).day)
 
     return(new_df)
 
@@ -61,11 +61,17 @@ def main():
         new_df = get_daily_diffence(read_df, 'confirmed')
         new_df = get_daily_diffence(new_df, 'deaths')
         new_df = get_daily_diffence(new_df, 'recovered')
-        #print(new_df)
+        print(new_df)
 
-        new_df.dropna(subset = ["prev_confirmed"], inplace=True) #drop first row with no prev value
+        new_df.dropna(subset = ["prev_day_confirmed"], inplace=True) #drop first row with no prev value
 
         final_df = split_datetime(new_df)
+        print(final_df.columns)
+        final_df = final_df[['date','year','month','day', 'confirmed',
+                            'prev_day_confirmed','daily_diff_in_confirmed',
+                            'deaths','prev_day_deaths','daily_diff_in_deaths',
+                            'recovered','prev_day_recovered','daily_diff_in_recovered',
+                            'active']]
         print(final_df)
 
         final_df.to_csv('cleansed_covid_data.csv', index=False)
