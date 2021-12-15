@@ -1,4 +1,4 @@
-def data_cleaner2():
+def data_cleaner():
     #import libraries
     from os import listdir
     from os.path import isfile, join
