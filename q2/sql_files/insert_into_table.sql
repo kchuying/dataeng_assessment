@@ -1,5 +1,3 @@
--- LOAD DATA INFILE '/store_files_mysql/clean_store_transactions.csv' INTO TABLE clean_store_transactions FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
-
 COPY customer(cust_id, cust_name, cust_birth_date, cust_gender_code, cust_phone_num, cust_address, cust_postal_code)
 FROM '/store_files_psql/customer.csv'
 DELIMITER ','

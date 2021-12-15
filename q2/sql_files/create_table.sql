@@ -1,4 +1,3 @@
--- CREATE TABLE IF NOT EXISTS clean_store_transactions(STORE_ID varchar(50), STORE_LOCATION varchar(50), PRODUCT_CATEGORY varchar(50), PRODUCT_ID int, MRP float, CP float, DISCOUNT float, SP float, DATE date);
 CREATE TABLE IF NOT EXISTS
 customer (cust_id VARCHAR(255) NOT NULL, -- both local and foreigner can buy cars in SG
            cust_name  VARCHAR(255) NOT NULL,
@@ -66,8 +65,8 @@ sales_order (sales_order_id BIGSERIAL NOT NULL, -- INT GENERATED ALWAYS AS IDENT
 
 CREATE TABLE IF NOT EXISTS
 sales_order_detail (sales_order_detail_id BIGSERIAL NOT NULL,
-                     sales_order_detail_sales_order_id INT NOT NULL, --fk
-                     sales_order_detail_car_serial_num VARCHAR(20) NOT NULL, -- fk
+                     sales_order_detail_sales_order_id BIGSERIAL NOT NULL, --fk
+                     sales_order_detail_car_serial_num VARCHAR(255) NOT NULL, -- fk
                      sales_order_detail_car_unit_price NUMERIC(10,2) NOT NULL,
                      sales_order_detail_qty INT NOT NULL,
                      PRIMARY KEY (sales_order_detail_id),
