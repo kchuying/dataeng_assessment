@@ -1,0 +1,6 @@
+cust_id, cust_name, cust_birth_date, cust_gender_code, cust_phone_num, cust_address, cust_postal_code
+S12345678A, Anna, '1993-04-30', F, 61234566, , 023456
+S22345678B, Ben, '1967-12-31', M, 80987654, 188 Westwood Avenue, 648149
+S32345678C, Carlos, '1990-4-23', M, 88349921, Blk 743 Jurong West St 74, 640743
+F123456789, Daniel, '1979-1-23', M, 67892342, 498A Tampines St 45, 520498
+G111111111, Eva, '1984-10-23', F, 90023488, 123 Bedok North Ave 10, 300123

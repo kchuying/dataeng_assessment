@@ -1,0 +1,7 @@
+sales_order_customer_id, sales_order_salesperson_id, sales_order_total_amt
+S12345678A,sp1,418000
+S22345678B,sp1,240000
+S32345678C,sp2,85000
+F123456789,sp2,120000
+G111111111,sp2,205000
+S12345678A,sp3,99000
