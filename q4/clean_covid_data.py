@@ -20,11 +20,11 @@ def read_json(endpoint):
         print(json_data)
         #print(type(data)) #returns a list
         df = pd.DataFrame.from_dict(json_data, orient='columns') #convert list to df
-        df.columns = [x.lower() for x in df.columns] #set column headers to loweracse
+        df.columns = [x.lower() for x in df.columns] #set column headers to lowercase
         df = df.loc[:,'confirmed':'date'] #Extract relevant columns
     return(df)
 
-#Get daily increase for specific columns
+#Get daily increase/decrease value for specific columns
 def get_daily_diffence(df,column_name):
 
     prev_col_name = "prev_day_" + column_name
@@ -57,21 +57,22 @@ def main():
         print(read_df.dtypes)
         print(read_df.columns)
 
-        #Calculate increase in confirmed cases
+        #Calculate daily difference for each variable
         new_df = get_daily_diffence(read_df, 'confirmed')
         new_df = get_daily_diffence(new_df, 'deaths')
         new_df = get_daily_diffence(new_df, 'recovered')
         print(new_df)
 
-        new_df.dropna(subset = ["prev_day_confirmed"], inplace=True) #drop first row with no prev value
+        new_df.dropna(subset = ["prev_day_confirmed"], inplace=True) #drop first row with no prev day value
 
-        final_df = split_datetime(new_df)
+        final_df = split_datetime(new_df) #split datetime into ymd
         print(final_df.columns)
+
         final_df = final_df[['date','year','month','day', 'confirmed',
                             'prev_day_confirmed','daily_diff_in_confirmed',
                             'deaths','prev_day_deaths','daily_diff_in_deaths',
                             'recovered','prev_day_recovered','daily_diff_in_recovered',
-                            'active']]
+                            'active']] #rearrange columns
         print(final_df)
 
         final_df.to_csv('cleansed_covid_data.csv', index=False)
